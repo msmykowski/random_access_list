@@ -1,11 +1,12 @@
 # RandomAccessList
+This is a purely functional implementation of a random access list based off of [Chris Okasaki's research](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.55.5156&rep=rep1&type=pdf).
 
-**TODO: Add description**
+A random access list is a data structure that has _O(log n)_ time _lookups_ and _updates_, while maintaining a constant time
+for _cons_, _tail_ and _head_ operations.
+
+A standard list used in Elixir has a _O(i)_ time for _lookups_ and _updates_, with _i_ being the index.
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `random_access_list` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,8 +15,4 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/random_access_list](https://hexdocs.pm/random_access_list).
 
