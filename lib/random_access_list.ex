@@ -17,7 +17,7 @@ defmodule RandomAccessList do
     new(tail, [CompleteBinaryTree.new(head) | acc])
   end
 
-  def fetch([], _index), do: {:error, :index_not_found}
+  def fetch([], _index), do: :error
 
   def fetch([head | tail], index) do
     if index < CompleteBinaryTree.size(head) do

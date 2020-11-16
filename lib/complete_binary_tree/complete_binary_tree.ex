@@ -31,7 +31,7 @@ defmodule CompleteBinaryTree do
         fetch(right, index - 1 - div(size - 1, 2))
 
       _ ->
-        {:error, :index_not_found}
+        :error
     end
   end
 

@@ -16,7 +16,7 @@ defmodule RandomAccessListTest do
   test "#fetch/2" do
     range = 0..25
     list = Enum.into(range, [])
-    ral = IO.inspect RandomAccessList.new(list)
+    ral = RandomAccessList.new(list)
 
     for i <- range do
       assert RandomAccessList.fetch(ral, i) == {:ok, i}
