@@ -3,9 +3,11 @@ defmodule RandomAccessList do
   Documentation for `RandomAccessList`.
   """
 
+  defstruct list: []
+
   def new(list, acc \\ [])
 
-  def new([], acc), do: Enum.reverse(acc)
+  def new([], acc), do: struct(__MODULE__, list: Enum.reverse(acc))
 
   def new(list, acc) when is_list(list) do
     size =
@@ -18,13 +20,15 @@ defmodule RandomAccessList do
     new(tail, [CompleteBinaryTree.new(head) | acc])
   end
 
-  def fetch([], _index), do: :error
+  def fetch(%__MODULE__{list: list}, index), do: fetch_(list, index)
 
-  def fetch([head | tail], index) do
+  defp fetch_([], _index), do: :error
+
+  defp fetch_([head | tail], index) do
     if index < CompleteBinaryTree.size(head) do
       CompleteBinaryTree.fetch(head, index)
     else
-      fetch(tail, index - CompleteBinaryTree.size(head))
+      fetch_(tail, index - CompleteBinaryTree.size(head))
     end
   end
 
