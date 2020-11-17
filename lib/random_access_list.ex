@@ -11,9 +11,10 @@ defmodule RandomAccessList do
     size =
       list
       |> length()
-      |> gsbd()
+      |> greedy_skew_binary_decomposition()
 
     {head, tail} = Enum.split(list, size)
+
     new(tail, [CompleteBinaryTree.new(head) | acc])
   end
 
@@ -27,7 +28,7 @@ defmodule RandomAccessList do
     end
   end
 
-  defp gsbd(number) do
+  defp greedy_skew_binary_decomposition(number) do
     trunc(:math.pow(2, :math.floor(:math.log(number + 1) / :math.log(2))) - 1)
   end
 end
