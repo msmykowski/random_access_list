@@ -23,7 +23,7 @@ defmodule RandomAccessList do
     if index < CompleteBinaryTree.size(head) do
       CompleteBinaryTree.fetch(head, index)
     else
-      fetch(tail, index - head.size)
+      fetch(tail, index - CompleteBinaryTree.size(head))
     end
   end
 
