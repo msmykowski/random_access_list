@@ -1,9 +1,9 @@
-ten = Enum.to_list(1..10)
-hundred = Enum.to_list(1..100)
-thousand = Enum.to_list(1..1_000)
-ten_thousand = Enum.to_list(1..10_000)
-hundred_thousand = Enum.to_list(1..100_000)
-million = Enum.to_list(1..1_000_000)
+ten = Enum.to_list(0..10)
+hundred = Enum.to_list(0..100)
+thousand = Enum.to_list(0..1_000)
+ten_thousand = Enum.to_list(0..10_000)
+hundred_thousand = Enum.to_list(0..100_000)
+million = Enum.to_list(0..1_000_000)
 
 ten_ral = RandomAccessList.new(ten)
 hundred_ral = RandomAccessList.new(hundred)
@@ -14,8 +14,8 @@ million_ral = RandomAccessList.new(million)
 
 Benchee.run(
   %{
-    "standard" => fn {standard, _ral, index}-> Enum.fetch(standard, index) end,
-    "random_access_list" => fn {standard, ral, index} -> RandomAccessList.fetch(ral, index) end,
+    "standard" => fn {standard, _ral, index}-> {:ok, ^index} = Enum.fetch(standard, index) end,
+    "random_access_list" => fn {_standard, ral, index} -> {:ok, ^index} = RandomAccessList.fetch(ral, index) end,
   },
   inputs: %{
     "ten" => {ten, ten_ral, 5},

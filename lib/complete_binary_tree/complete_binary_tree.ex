@@ -12,8 +12,9 @@ defmodule CompleteBinaryTree do
   defp new([head | tail], size) do
     if skew_binary_number?(size) do
       subtree_size = div(length(tail), 2)
-      {half_one, half_two} = Enum.split(tail, subtree_size)
-      Node.new(head, new(half_one, subtree_size), new(half_two, subtree_size), size)
+      {left_subtree, right_subtree} = Enum.split(tail, subtree_size)
+
+      Node.new(head, new(left_subtree, subtree_size), new(right_subtree, subtree_size), size)
     else
       raise("List must be of a skew binary length")
     end
