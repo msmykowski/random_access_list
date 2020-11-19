@@ -30,7 +30,7 @@ defmodule CompleteBinaryTreeTest do
 
     for i <- range do
       assert tree
-             |> CompleteBinaryTree.update_at(i + 1, i)
+             |> CompleteBinaryTree.update_at(i, &(&1 + 1))
              |> CompleteBinaryTree.fetch(i) == {:ok, i + 1}
     end
   end

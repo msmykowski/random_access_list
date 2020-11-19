@@ -36,22 +36,22 @@ defmodule CompleteBinaryTree do
     end
   end
 
-  def update_at(node, value, index) do
+  def update_at(node, index, update_func) do
     case {node, index} do
-      {%Leaf{}, 0} ->
-        Leaf.new(value)
+      {%Leaf{value: value}, 0} ->
+        Leaf.new(update_func.(value))
 
-      {%Node{} = node, 0} ->
-        Node.new(value, node.left, node.right, node.size)
+      {%Node{value: value} = node, 0} ->
+        Node.new(update_func.(value), node.left, node.right, node.size)
 
       {%Node{size: size} = node, index} when index <= size / 2 ->
-        Node.new(node.value, update_at(node.left, value, index - 1), node.right, node.size)
+        Node.new(node.value, update_at(node.left, index - 1, update_func), node.right, node.size)
 
       {%Node{size: size} = node, index} when index > size / 2 ->
         Node.new(
           node.value,
           node.left,
-          update_at(node.right, value, index - 1 - div(size - 1, 2)),
+          update_at(node.right, index - 1 - div(size - 1, 2), update_func),
           node.size
         )
 

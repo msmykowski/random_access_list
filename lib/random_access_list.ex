@@ -32,6 +32,21 @@ defmodule RandomAccessList do
     end
   end
 
+  def update_at(%__MODULE__{list: list}, index, update_func) do
+    %__MODULE__{list: update_at_(list, [], index, update_func)}
+  end
+
+  defp update_at_([], acc, _index, _update_func), do: Enum.reverse(acc)
+
+  defp update_at_([head | tail], acc, index, update_func) do
+    if index < CompleteBinaryTree.size(head) do
+      updated_tree = CompleteBinaryTree.update_at(head, index, update_func)
+      Enum.reverse([updated_tree | acc]) ++ tail
+    else
+      update_at_(tail, [head | acc], index - CompleteBinaryTree.size(head), update_func)
+    end
+  end
+
   defp greedy_skew_binary_decomposition(number) do
     trunc(:math.pow(2, :math.floor(:math.log(number + 1) / :math.log(2))) - 1)
   end
