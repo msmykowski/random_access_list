@@ -1,10 +1,20 @@
 defmodule RandomAccessList do
   @moduledoc """
-  Documentation for `RandomAccessList`.
+  A random access list is a persistent list data structure that has O(log n) time lookups and updates,
+  while maintaining a constant time for cons, tail and head operations.
+
+  This compares to a standard list that has a O(i) time for lookups and updates, with i being the index.
   """
 
   defstruct list: []
 
+  @type random_access_list() :: %__MODULE__{}
+  @type index() :: integer()
+
+  @doc """
+  Instantiates a random access list from a standard list.
+  """
+  @spec new(list()) :: random_access_list()
   def new(list, acc \\ [])
 
   def new([], acc), do: struct(__MODULE__, list: Enum.reverse(acc))
@@ -20,6 +30,11 @@ defmodule RandomAccessList do
     new(tail, [CompleteBinaryTree.new(head) | acc])
   end
 
+  @doc """
+  Returns the element at the index provided. If the index is
+  not present in the random access list `:error` is returned.
+  """
+  @spec new(random_access_list(), index()) :: {:ok, any()} | :error
   def fetch(%__MODULE__{list: list}, index), do: fetch_(list, index)
 
   defp fetch_([], _index), do: :error
@@ -32,6 +47,11 @@ defmodule RandomAccessList do
     end
   end
 
+  @doc """
+  Updates an element in a random access list at the index provided,
+  using the update function that is passed.
+  """
+  @spec update_at(random_access_list(), index(), fun()) :: random_access_list()
   def update_at(%__MODULE__{list: list}, index, update_func) do
     %__MODULE__{list: update_at_(list, [], index, update_func)}
   end
